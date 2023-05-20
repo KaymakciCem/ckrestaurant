@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'admin-root',
+  selector: 'ckrestaurant-root',
   templateUrl: './app.component.html'
 })
 export class AppComponent {
