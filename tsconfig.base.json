@@ -18,7 +18,8 @@
       "@ckrestaurant/orders": ["libs/orders/src/index.ts"],
       "@ckrestaurant/products": ["libs/products/src/index.ts"],
       "@ckrestaurant/ui": ["libs/ui/src/index.ts"],
-      "@ckrestaurant/users": ["libs/users/src/index.ts"]
+      "@ckrestaurant/users": ["libs/users/src/index.ts"],
+      "@env/*": ["environments/*"]
     }
   },
   "exclude": ["node_modules", "tmp"]
