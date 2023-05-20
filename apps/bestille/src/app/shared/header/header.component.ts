@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'ckrestaurant-header',
+  selector: 'bestille-header',
   templateUrl: './header.component.html'
 })
 export class HeaderComponent {}
