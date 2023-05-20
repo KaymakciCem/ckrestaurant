@@ -1,0 +1,17 @@
+@import "./base/colors.scss";
+@import "./base/fonts.scss";
+@import "./base/mixins.scss";
+@import "./base/configuration.scss";
+
+
+//pages
+@import "./apps/bestille/pages/home-page.scss";
+@import "./apps/bestille/pages/product-list.scss";
+
+//shared
+@import "./apps/bestille/shared/header.scss";
+@import "./apps/bestille/shared/footer.scss";
+
+
+//library
+@import "./libs/ui/ui.scss";
