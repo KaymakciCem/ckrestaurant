@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'ckrestaurant-footer',
+  selector: 'bestille-footer',
   templateUrl: './footer.component.html'
 })
 export class FooterComponent {}

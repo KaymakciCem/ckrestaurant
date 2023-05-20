@@ -1,3 +1,20 @@
+@import "normalize.css";
 @import "./base/colors.scss";
-@import "./base/configuration.scss";
 @import "./base/fonts.scss";
+@import "./base/mixins.scss";
+
+
+
+//prime-ng
+@import "primeicons/primeicons.css";
+@import "primeng/resources/themes/soho-light/theme.css";
+@import "primeng/resources/primeng.css";
+@import "primeflex/primeflex.css";
+
+@import "./base/configuration.scss";
+
+//library
+@import "./libs/ui/ui.scss";
+
+//shared
+@import "./apps/admin/shell.scss";

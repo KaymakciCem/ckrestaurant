@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'ckrestaurant-root',
+  selector: 'bestille-root',
   templateUrl: './app.component.html'
 })
 export class AppComponent {

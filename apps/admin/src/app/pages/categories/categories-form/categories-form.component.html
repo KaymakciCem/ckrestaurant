@@ -1,0 +1,50 @@
+<p-toast></p-toast>
+<div class="admin-page">
+    <p-card [header]="editMode ? 'Edit Category' : 'Add Category'" subheader="You can add or edit categories here.">
+        <div class="grid p-mb-5">
+            <div class="col-12">
+                <p-toolbar>
+                    <div class="p-toolbar-group-start"></div>
+                    <div class="p-toolbar-group-end">
+                        <p-button 
+                            [label]="editMode ? 'Edit Category' : 'Add Category'" 
+                            icon="pi pi-plus" 
+                            styleClass="p-button-primary"
+                            (click)="onSubmit()"></p-button>
+                            <p-button 
+                            label="Cancel" 
+                            icon="pi pi-arrow-circle-left" 
+                            styleClass="p-button-secondary w-8rem m-2 border-round"
+                            routerLink="form"></p-button>
+                    </div>
+                </p-toolbar>
+            </div>
+            <div class="col-12">
+                <form [formGroup]="formGroup">
+                    <div class="card">
+                        <div class="formgrid grid">
+                            <div class="field col">
+                                <label for="name">Name</label>
+                                <input 
+                                    id="name" 
+                                    type="text" 
+                                    class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+                                    formControlName="name">
+                                <small *ngIf="getCategoryForm().name.invalid && isSubmitted" class="p-error">Name is required</small>
+                            </div>
+                            <div class="field col">
+                                <label for="icon">Icon</label>
+                                <input 
+                                    id="icon" 
+                                    type="text" 
+                                    class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+                                    formControlName="icon">
+                                <small *ngIf="getCategoryForm().icon.invalid && isSubmitted"  class="p-error">Icon is required</small>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </p-card>
+</div>
