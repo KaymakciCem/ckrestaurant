@@ -1,5 +1,5 @@
 import { Location } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { CategoriesService, Category } from '@ckrestaurant/products';
@@ -10,7 +10,7 @@ import { timer } from 'rxjs';
   selector: 'admin-categories-form',
   templateUrl: './categories-form.component.html'
 })
-export class CategoriesFormComponent {
+export class CategoriesFormComponent implements OnInit {
 
   formGroup: FormGroup;
   isSubmitted = false;
@@ -72,7 +72,6 @@ export class CategoriesFormComponent {
           });
       }
     })
-    throw new Error('Method not implemented.');
   }
 
   private _updateCategory(category: Category) {
