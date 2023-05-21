@@ -24,17 +24,30 @@ import { CategoriesService } from '@ckrestaurant/products';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ColorPickerModule } from 'primeng/colorpicker';
+import { ProductListComponent } from './pages/products/product-list/product-list.component';
+import { ProductFormComponent } from './pages/products/product-form/product-form.component';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { DropdownModule } from 'primeng/dropdown';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { InputSwitchModule } from 'primeng/inputswitch';
+import { EditorModule } from 'primeng/editor';
 
 const UX_MODULE = [
-  CardModule, 
-  ToolbarModule, 
-  ButtonModule, 
+  CardModule,
+  ToolbarModule,
+  ButtonModule,
   TableModule,
   InputTextModule,
   ToastModule,
   MessagesModule,
   ConfirmDialogModule,
-  ColorPickerModule];
+  ColorPickerModule,
+  InputNumberModule,
+  DropdownModule,
+  InputTextareaModule,
+  InputSwitchModule,
+  EditorModule
+];
 
 @NgModule({
   declarations: [
@@ -45,6 +58,8 @@ const UX_MODULE = [
     SidebarComponent,
     CategoriesListComponent,
     CategoriesFormComponent,
+    ProductListComponent,
+    ProductFormComponent,
   ],
   imports: [
     BrowserModule,
@@ -53,7 +68,7 @@ const UX_MODULE = [
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forRoot(appRoutes, { initialNavigation: 'enabledBlocking' }),
-    ...UX_MODULE
+    ...UX_MODULE,
   ],
   providers: [CategoriesService, MessageService, ConfirmationService],
   bootstrap: [AppComponent],

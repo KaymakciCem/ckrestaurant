@@ -1,0 +1,102 @@
+<p-toast></p-toast>
+<div class="admin-page">
+    <p-card [header]="editMode ? 'Update Product' : 'Add Product'" subheader="You can add or edit products here.">
+        <div class="grid p-mb-5">
+            <div class="col-12">
+                <p-toolbar>
+                    <div class="p-toolbar-group-start"></div>
+                    <div class="p-toolbar-group-end">
+                        <p-button 
+                            [label]="editMode ? 'Update Product' : 'Add Product'" 
+                            icon="pi pi-plus" 
+                            styleClass="p-button-primary"
+                            (click)="onSubmit()"></p-button>
+                        <p-button 
+                            label="Cancel" 
+                            icon="pi pi-arrow-circle-left" 
+                            styleClass="p-button-secondary w-8rem m-2 border-round"
+                            routerLink="form"
+                            (click)="onCancel()"></p-button>
+                    </div>
+                </p-toolbar>
+            </div>
+            <div class="col-12">
+                <form [formGroup]="formGroup">
+                    <div class="card">
+                        <div class="formgrid grid">
+                            <div class="field col">
+                                <label for="name">Name</label>
+                                <input 
+                                    id="name" 
+                                    type="text" 
+                                    class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+                                    formControlName="name">
+                                <small *ngIf="getProductForm().name.invalid && isSubmitted" class="p-error">Name is required</small>
+                            </div>
+                            <div class="field col">
+                                <label for="brand">Brand</label>
+                                <input 
+                                    id="brand" 
+                                    type="text" 
+                                    class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+                                    formControlName="brand">
+                                <small *ngIf="getProductForm().brand.invalid && isSubmitted" class="p-error">Brand is required</small>
+                            </div>
+                            <div class="field col">
+                                <label for="price">Price</label><br />
+                                <p-inputNumber formControlName="price" mode="decimal" inputId="price" [useGrouping]="false"> </p-inputNumber>
+                                <small *ngIf="getProductForm().price.invalid && isSubmitted" class="p-error">Price is required</small>
+                            </div>
+                        </div>
+                        <div class="formgrid grid">
+                            <div class="field col-4">
+                                <label for="countInStock">Count In Stock</label>
+                                <input 
+                                    id="countInStock" 
+                                    type="text" 
+                                    class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+                                    formControlName="countInStock">
+                                <small *ngIf="getProductForm().countInStock.invalid && isSubmitted" class="p-error">Count In Stock is required</small>
+                            </div>
+                            <div class="field col-4">
+                                <label for="category">Category</label><br />
+                                <p-dropdown 
+                                    [options]="categories" 
+                                    formControlName="category" 
+                                    optionLabel="name" 
+                                    optionValue="id"
+                                    [filter]="true" 
+                                    filterBy="name" 
+                                    [showClear]="true" 
+                                    placeholder="Select a Category"></p-dropdown>
+                                <small *ngIf="getProductForm().category.invalid && isSubmitted" class="p-error">Category is required</small>
+                            </div>
+                            <div class="field col-4">
+                                <label for="isFeatured">Featured</label><br />
+                                <p-inputSwitch formControlName="isFeatured"></p-inputSwitch>
+                            </div>
+
+                            <div class="field col-12">
+                                <label for="description">Description</label><br />
+                                <textarea rows="7" cols="30" pInputTextarea formControlName="description"></textarea>
+                            </div>
+
+                            <div class="field col-12">
+                                <label for="image">Main Image</label><br />
+                                <input 
+                                    type="file" 
+                                    class="p-inputtext" 
+                                    accept="image/*" 
+                                    (change)="onImageUpload($event)" />
+                            </div>
+                            <small *ngIf="getProductForm().image.invalid && isSubmitted" class="p-error">Image is required</small>
+                            <div class="col-2">
+                                <img style="width: 100%" [src]="imageDisplay" alt="" />
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </p-card>
+</div>
