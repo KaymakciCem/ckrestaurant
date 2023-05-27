@@ -14,6 +14,7 @@ import { AccordionModule } from 'primeng/accordion';
 import { NavComponent } from './shared/nav/nav.component';
 import { ProductsModule } from '@ckrestaurant/products';
 import { HttpClientModule } from '@angular/common/http';
+import { OrdersModule } from '@ckrestaurant/orders';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { HttpClientModule } from '@angular/common/http';
     HttpClientModule,
     UiModule,
     AccordionModule,
-    ProductsModule
+    ProductsModule,
+    OrdersModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

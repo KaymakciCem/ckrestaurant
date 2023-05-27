@@ -24,7 +24,7 @@ import { CategoriesService } from '@ckrestaurant/products';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ColorPickerModule } from 'primeng/colorpicker';
-import { ProductListComponent } from './pages/products/product-list/product-list.component';
+// import { ProductListComponent } from './pages/products/product-list/product-list.component';
 import { ProductFormComponent } from './pages/products/product-form/product-form.component';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { DropdownModule } from 'primeng/dropdown';
@@ -58,7 +58,7 @@ const UX_MODULE = [
     SidebarComponent,
     CategoriesListComponent,
     CategoriesFormComponent,
-    ProductListComponent,
+    // ProductListComponent,
     ProductFormComponent,
   ],
   imports: [
