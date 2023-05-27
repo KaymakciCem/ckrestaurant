@@ -12,6 +12,7 @@ import { HeaderComponent } from './shared/header/header.component';
 import { UiModule } from '@ckrestaurant/ui';
 
 import { AccordionModule } from 'primeng/accordion';
+import { NavComponent } from './shared/nav/nav.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { AccordionModule } from 'primeng/accordion';
     HomePageComponent,
     FooterComponent,
     HeaderComponent,
+    NavComponent
   ],
   imports: [
     BrowserModule,
