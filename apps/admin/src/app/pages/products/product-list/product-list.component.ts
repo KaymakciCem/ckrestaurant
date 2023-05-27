@@ -1,14 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
-import { ProductsService, Product } from '@ckrestaurant/products';
+import { ProductsService } from '@ckrestaurant/products';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'admin-product-list',
   templateUrl: './product-list.component.html'
 })
-export class ProductListComponent implements OnInit {
+export class ProductListComponent implements OnInit, OnDestroy {
   products = [];
+  endSubscription$ = new Subject<void>();
 
   constructor(
     private productService: ProductsService,
@@ -19,14 +21,22 @@ export class ProductListComponent implements OnInit {
     this.getProducts();
   }
 
+  ngOnDestroy(): void {
+    this.endSubscription$.next();
+    this.endSubscription$.complete();
+  }
+
   getProducts() {
-    this.productService.getProducts().subscribe(
-      (response) => {
+    this.productService.getProducts()
+    .pipe(takeUntil(this.endSubscription$))
+    .subscribe({
+      next: (response) => {
         this.products = response;
       },
-      (error) => {
+      error: (error) => {
         console.log(error);
       }
+    }
     );
   }
 
@@ -35,14 +45,17 @@ export class ProductListComponent implements OnInit {
   }
 
   deleteProduct(productId: string) {
-    this.productService.deleteProduct(productId).subscribe(
-      (product: Product) => {
+    this.productService.deleteProduct(productId)
+    .pipe(takeUntil(this.endSubscription$))
+    .subscribe({
+      next: () => {
         this.messageService.add({severity: 'success', summary: 'Product deleted'});
         this.getProducts();
-      }, (error) => { 
+      },
+      error: () => { 
         this.messageService.add({severity: 'error', summary: 'Error deleting product'});
       }
-    );
+    });
   }
   
 }

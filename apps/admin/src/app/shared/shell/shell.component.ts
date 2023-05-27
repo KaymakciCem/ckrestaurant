@@ -4,8 +4,6 @@ import { Component, OnInit } from '@angular/core';
   selector: 'admin-shell',
   templateUrl: './shell.component.html',
 })
-export class ShellComponent implements OnInit {
-  constructor() {}
+export class ShellComponent {
 
-  ngOnInit(): void {}
 }

@@ -1,17 +1,17 @@
 import { Location } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { CategoriesService, Category, Product, ProductsService } from '@ckrestaurant/products';
 import { MessageService } from 'primeng/api';
-import { timer } from 'rxjs';
+import { Subject, Subscription, takeUntil, timer } from 'rxjs';
 
 
 @Component({
   selector: 'admin-product-form',
   templateUrl: './product-form.component.html'
 })
-export class ProductFormComponent implements OnInit {
+export class ProductFormComponent implements OnInit, OnDestroy {
 
   formGroup: FormGroup;
   isSubmitted = false;
@@ -19,6 +19,7 @@ export class ProductFormComponent implements OnInit {
   currentProductId: string;
   categories: Category[] = [];
   imageDisplay: string | ArrayBuffer | null = null;
+  endSubscription$ = new Subject<void>();
 
   constructor(
     private formBuilder: FormBuilder, 
@@ -44,6 +45,11 @@ export class ProductFormComponent implements OnInit {
     this._getCategories();
 
     this._checkEditMode();
+  }
+
+  ngOnDestroy(): void {
+    this.endSubscription$.next();
+    this.endSubscription$.complete();
   }
 
   onSubmit() {
@@ -90,14 +96,16 @@ export class ProductFormComponent implements OnInit {
   }
 
   private _getCategories() {
-    this.categoryService.getCategories().subscribe(
-    (response) => {
-      this.categories = response;
-    },
-    (error) => { 
-      console.log(error);
-    }
-  );
+    this.categoryService.getCategories()
+    .pipe(takeUntil(this.endSubscription$))
+    .subscribe({
+      next: (response) => {
+        this.categories = response;
+      },
+      error: (error) => { 
+        console.log(error);
+      }
+    });
 }
 
 
@@ -107,51 +115,58 @@ export class ProductFormComponent implements OnInit {
         this.editMode = true;
         this.currentProductId = params.id;
 
-        this.productService.getProduct(params.id).subscribe(
-          (response) => {
-            this.getProductForm().name.setValue(response.name);
-            this.getProductForm().brand.setValue(response.brand);
-            this.getProductForm().countInStock.setValue(response.countInStock);
-            this.getProductForm().price.setValue(response.price);
-            this.getProductForm().category.setValue(response.category.id);
-            this.getProductForm().description.setValue(response.description);
-            this.getProductForm().isFeatured.setValue(response.isFeatured);
-            this.imageDisplay = response.image;
-            this.getProductForm().image.setValidators([]);
-            this.getProductForm().image.updateValueAndValidity();
-          },
-          (error) => {
-            this.messageService.add({severity: 'error', summary: 'Error', detail: error.message});
+          this.productService.getProduct(params.id)
+          .pipe(takeUntil(this.endSubscription$))
+          .subscribe({
+            next: (response) => {
+              this.getProductForm().name.setValue(response.name);
+              this.getProductForm().brand.setValue(response.brand);
+              this.getProductForm().countInStock.setValue(response.countInStock);
+              this.getProductForm().price.setValue(response.price);
+              this.getProductForm().category.setValue(response.category.id);
+              this.getProductForm().description.setValue(response.description);
+              this.getProductForm().isFeatured.setValue(response.isFeatured);
+              this.imageDisplay = response.image;
+              this.getProductForm().image.setValidators([]);
+              this.getProductForm().image.updateValueAndValidity();
+            },
+            error: (error) => {
+              this.messageService.add({severity: 'error', summary: 'Error', detail: error.message});
+            }
           });
       }
     })
   }
 
   private _updateProduct(product: FormData) {
-    this.productService.updateProduct(this.currentProductId, product).subscribe(
-      (product: Product) => {
+    this.productService.updateProduct(this.currentProductId, product)
+    .pipe(takeUntil(this.endSubscription$))
+    .subscribe({
+      next: (product: Product) => {
         this.messageService.add({severity: 'success', summary: 'Success', detail: `Product ${product.name} Updated`});
         timer(2000).toPromise().then(() => {
           this.location.back();
         });
       },
-      error => {
-        this.messageService.add({severity: 'error', summary: 'Error', detail: error.message});
+      error: (error) => { 
+        console.log(error);
       }
-    );
+    });
   }
 
   private _addProduct(productData: FormData) {
-    this.productService.addProduct(productData).subscribe(
-      (product: Product) => {
+    this.productService.addProduct(productData)
+    .pipe(takeUntil(this.endSubscription$))
+    .subscribe({
+      next: (product: Product) => {
         this.messageService.add({severity: 'success', summary: 'Success', detail: `Procuct ${product.name} Added`});
         timer(2000).toPromise().then(() => {
           this.location.back();
         });
       },
-      error => {
+      error: (error) => { 
         this.messageService.add({severity: 'error', summary: 'Error', detail: error.message});
       }
-    );
+    });
   }
 }

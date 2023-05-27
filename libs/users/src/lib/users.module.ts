@@ -1,9 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule, RouterModule, Route } from '@angular/router';
 import { usersRoutes } from './lib.routes';
 
 @NgModule({
-  imports: [CommonModule, RouterModule.forChild(usersRoutes), RouterModule],
+  imports: [CommonModule],
 })
 export class UsersModule {}

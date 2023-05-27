@@ -31,6 +31,8 @@ import { DropdownModule } from 'primeng/dropdown';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { EditorModule } from 'primeng/editor';
+import { UsersFormComponent } from './pages/users/users-form/users-form.component';
+import { UsersListComponent } from './pages/users/users-list/users-list.component';
 
 const UX_MODULE = [
   CardModule,
@@ -46,7 +48,7 @@ const UX_MODULE = [
   DropdownModule,
   InputTextareaModule,
   InputSwitchModule,
-  EditorModule
+  EditorModule,
 ];
 
 @NgModule({
@@ -60,6 +62,8 @@ const UX_MODULE = [
     CategoriesFormComponent,
     ProductListComponent,
     ProductFormComponent,
+    UsersFormComponent,
+    UsersListComponent,
   ],
   imports: [
     BrowserModule,
