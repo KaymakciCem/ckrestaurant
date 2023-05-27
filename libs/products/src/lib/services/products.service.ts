@@ -20,6 +20,10 @@ export class ProductsService {
         return this.http.get<Product[]>(this.apiUrlProducts);
     }
 
+    getFeaturedProducts(count: number): Observable<Product[]> { 
+        return this.http.get<Product[]>(`${this.apiUrlProducts}/get/featured/${count}`);
+    }
+
     addProduct(productData: FormData): Observable<Product> { 
         return this.http.post(this.apiUrlProducts, productData);
     }
